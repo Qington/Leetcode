@@ -1,0 +1,22 @@
+bool containsNearbyDuplicate(int* nums, int numsSize, int k) {
+    bool findone=false;
+    if (k>=numsSize)
+        k=numsSize-1;
+    for (int i=0; i<numsSize; i++)
+    {   
+        int a=k;
+        if (numsSize-i<=k)
+            a=numsSize-i;
+            printf("%d\n",a);
+        for (int j=i+1; j<=(i+a>=numsSize?i+a-1:i+a); j++)
+        {
+            if (*(nums+i)==*(nums+j))
+                {   
+                    printf("%d %d \n",i,j);
+                    findone=true;
+                    return findone;
+                }
+        }  
+    }
+    return findone;
+}
