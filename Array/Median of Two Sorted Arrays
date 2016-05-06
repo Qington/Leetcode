@@ -1,0 +1,50 @@
+class Solution {
+public:
+    double findMedianSortedArrays(vector<int>& nums1, vector<int>& nums2) {
+        vector <int> nums3(nums1.size()+nums2.size());
+        double median;
+        int i=0,j=0,k=0;
+        for (;(i<nums1.size()&&j<nums2.size());++k)
+        {
+            if(nums1[i]<nums2[j])
+            {
+                nums3[k]=nums1[i];
+                ++i;
+            }
+            else
+            {
+                nums3[k]=nums2[j];  
+                ++j;
+            }
+        }
+        if (i<nums1.size())
+            {
+                for(;i<nums1.size();++i,++k)
+                     nums3[k]=nums1[i];
+            }
+        else
+             {
+                for(;j<nums2.size();++j,++k)
+                     nums3[k]=nums2[j];
+            }
+        /*
+        for(auto u:nums3)
+            std::cout << u << " ";
+        std::cout << std::endl;
+        std::cout <<  (nums1.size()+nums2.size())%2 << (nums1.size()+nums2.size())/2 << std::endl;
+        */
+        if((nums1.size()+nums2.size())%2==0)
+        {
+           // std::cout <<"Here" << nums3.size()<< nums3[(nums1.size()+nums2.size())/2-1]<<nums3[(nums1.size()+nums2.size())/2]<< std::endl ;
+            
+            median=double(nums3[(nums1.size()+nums2.size())/2-1]+nums3[(nums1.size()+nums2.size())/2])/2;
+        }
+        else
+        {
+            //std::cout <<"Here" <<nums3[(nums1.size()+nums2.size())/2];
+            median=nums3[(nums1.size()+nums2.size())/2];
+        }
+           
+     return median;   
+    }
+};
