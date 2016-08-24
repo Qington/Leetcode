@@ -14,7 +14,7 @@ public:
            if (nums[med]==target)
                     return med; 
                     
-           if (nums[start]<nums[med]){
+           if (nums[start]<=nums[med]){
                 if (nums[start]<=target && target<=nums[med])
                     end=med;
                 else
