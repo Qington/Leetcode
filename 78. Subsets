@@ -1,0 +1,23 @@
+class Solution {
+public:
+     vector<vector<int> > subsets(vector<int> &nums) {
+    	// write your code here
+    	vector<vector<int>> result;
+    	vector<int> path;
+    	
+    	result.push_back(path);
+    	dfs(result,nums,0,path);
+    	return result;
+    }
+    void dfs(vector<vector<int>> &result,vector<int> &nums,int pos,vector<int> &path){
+        if(pos==nums.size())
+            return;
+        for(int i=pos;i<nums.size();i++){
+            path.push_back(nums[i]);
+            result.push_back(path);
+            dfs(result,nums,i+1,path);
+            path.pop_back();
+        }
+        
+    }
+};
