@@ -1,3 +1,11 @@
+//1 从后往前遍历string
+
+//2 保存单词，然后需要逆转，在保存到结果中.注意题目中的clarification，处理好其中的空格。
+
+//3 利用了两个额外string保存中间结果。空间复杂度为O(n).时间复杂度是O(n).
+
+
+
 class Solution {
 public:
     void reverseWords(string &s) {
