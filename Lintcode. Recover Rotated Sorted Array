@@ -1,0 +1,22 @@
+class Solution {
+public:
+    void recoverRotatedSortedArray(vector<int> &nums) {
+        // write your code here
+        int i;
+        for(i=0;i<nums.size()-1;i++){
+            if(nums[i]>nums[i+1])
+                break;
+        }
+        if(i!=nums.size()-1){
+            Rotate(nums,0,i);
+            Rotate(nums,i+1,nums.size()-1);
+            Rotate(nums,0,nums.size()-1);
+        }
+    }
+    void Rotate(vector<int> &temp,int l,int r){
+        if(!temp.empty()){
+            while(l<r)
+                swap(temp[l++],temp[r--]);
+        }
+    }
+};
