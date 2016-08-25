@@ -1,0 +1,23 @@
+class Solution {
+public:
+    /**
+     * @param str: a string
+     * @param offset: an integer
+     * @return: nothing
+     */
+    void rotateString(string &str,int offset){
+        //wirte your code here
+        if(offset>0&&str.length()>0){
+            offset=offset%str.length();
+            Rotate(str,0,str.length()-offset-1);
+            Rotate(str,str.length()-offset,str.length()-1);
+            Rotate(str,0,str.length()-1);
+        }
+    }
+    void Rotate(string &temp,int l,int r){
+        if(!temp.empty()){
+            while(l<r)
+                swap(temp[l++],temp[r--]);
+        }
+    }
+};
