@@ -1,15 +1,25 @@
 /**
- * Definition for singly-linked list.
- * struct ListNode {
+ * Definition of ListNode
+ * class ListNode {
+ * public:
  *     int val;
  *     ListNode *next;
- *     ListNode(int x) : val(x), next(NULL) {}
- * };
+ *     ListNode(int val) {
+ *         this->val = val;
+ *         this->next = NULL;
+ *     }
+ * }
  */
-class Solution {
+class Solution{
 public:
-    ListNode* deleteDuplicates(ListNode* head) {
-       ListNode *dummy=NULL;
+    /**
+     * @param head: The first node of linked list.
+     * @return: head node
+     */
+    ListNode * deleteDuplicates(ListNode *head) {
+        // write your code here
+        
+        ListNode *dummy=new ListNode(0);//初始化为NULL和不初始化都错误。这能这样
         if(head==NULL)
             return head;
         
@@ -24,11 +34,13 @@ public:
                 while(head->next->next!=NULL && head->next->next->val==Val){
                     head->next=head->next->next;
                 }
+                head->next=head->next->next;
             }else{
                     head=head->next;
             }
         }
         
         return dummy->next;
+        
     }
 };
