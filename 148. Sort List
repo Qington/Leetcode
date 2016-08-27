@@ -1,0 +1,84 @@
+/**
+ * Definition of ListNode
+ * class ListNode {
+ * public:
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int val) {
+ *         this->val = val;
+ *         this->next = NULL;
+ *     }
+ * }
+ */
+class Pair{
+    public:
+        ListNode *left,*right;
+        Pair(ListNode *one,ListNode *two){
+            this->left=one;
+            this->right=two;
+        }
+};
+class Solution {
+public:
+    /**
+     * @param head: The first node of linked list.
+     * @return: You should return the head of the sorted linked list,
+                    using constant space complexity.
+     */
+    ListNode *sortList(ListNode *head) {
+        // write your code here
+        if(head==NULL||head->next==NULL)
+            return head;
+        
+        ListNode *s = new ListNode(0), *f = new ListNode(0);
+        s=head;
+        f=head->next;
+        while(f != NULL && f->next != NULL){
+            s=s->next;
+            f=f->next->next;
+        }
+        
+        Pair *order=Partition(head,s->val);
+        
+        ListNode *l=sortList(order->left);
+        ListNode *r=sortList(order->right);
+        
+        ListNode *ldummy=new ListNode(0);
+        //if(l!=NULL){
+            ldummy=l;
+            while(l->next!=NULL)
+                l=l->next;
+            l->next=r;
+        //}else{
+        //    ldummy=r;
+       // }
+ 
+        return ldummy;
+    }
+    Pair *Partition(ListNode* head,int Val){
+        if(head==NULL)  
+            return new Pair(NULL,NULL);
+            
+        ListNode *S=new ListNode(0),*B=new ListNode(0);
+        ListNode *left=new ListNode(0),*right=new ListNode(0);
+        left=S;
+        right=B;
+    
+        while(head!=NULL){
+            if(head->val>=Val){
+                B->next=head;
+                B=B->next;
+            }else{
+                S->next=head;
+                S=S->next;
+            }
+            head=head->next;
+        }
+        B->next=NULL;
+        S->next=NULL;
+        Pair *result=new Pair(left->next,right->next);
+        return result;
+    }
+};
+
+
