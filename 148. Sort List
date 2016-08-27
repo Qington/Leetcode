@@ -107,6 +107,14 @@ public:
      * @return: You should return the head of the sorted linked list,
                     using constant space complexity.
      */
+      ListNode *findMedian(ListNode *head) {
+        ListNode *slow = head, *fast = head->next;
+        while (fast != NULL && fast->next != NULL) {
+            slow = slow->next;
+            fast = fast->next->next;
+        }
+        return slow;
+    }
     ListNode *sortList(ListNode *head) {
         // write your code here
        if(head==NULL||head->next==NULL)
@@ -133,21 +141,37 @@ public:
     Pair *Partation(ListNode *head,int val){
         if(head==NULL||head->next==NULL) return new Pair(head,NULL);
         
-        ListNode *list1=new ListNode(0),*list2=new ListNode(0);
-        ListNode *l1=list1,*l2=list2;
+        ListNode *list1=new ListNode(0),*list2=new ListNode(0),*list3=new ListNode(0);
+        ListNode *l1=list1,*l2=list2,*l3=list3;
         
         while(head!=NULL){
             if(head->val<val){
                 list1->next=head;
                 list1=list1->next;
-            }else{
+            }else if(head->val>val){
                 list2->next=head;
                 list2=list2->next;
+            }else{
+                list3->next=head;
+                list3=list3->next;
             }
              head=head->next;
         }
         list1->next=NULL;
         list2->next=NULL;
+        list3->next=NULL;
+        if(l1->next==NULL&&l2->next==NULL){
+            ListNode *temp=findMedian(l3);
+            l1=l3;
+            l2->next=temp->next;
+            temp->next=NULL;
+        }else if(l1->next==NULL){
+            list1->next=l3->next;
+        }else{
+            //list3->next=l2->next;
+            //l2=l3;
+            list2->next=l3->next;
+        }
         Pair *result=new Pair(l1->next,l2->next);
         
         return result;
@@ -161,6 +185,10 @@ public:
         
         return l;
     }
+   
 };
 
+
+
+   
 
