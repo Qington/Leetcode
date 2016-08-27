@@ -1,3 +1,4 @@
+/***********************Version 1:Merge sort.************************************/
 /**
  * Definition of ListNode
  * class ListNode {
@@ -73,3 +74,93 @@ public:
     }
     
 };
+
+
+/******************************Version 2:Quick sort.*************************************/
+//Not all accept.
+/**
+ * Definition of ListNode
+ * class ListNode {
+ * public:
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int val) {
+ *         this->val = val;
+ *         this->next = NULL;
+ *     }
+ * }
+ */
+class Pair{
+    public:
+        ListNode *left;
+        ListNode *right;
+        Pair(ListNode *l,ListNode *r){
+            this->left=l;
+            this->right=r;
+        }
+};
+
+class Solution {
+public:
+    /**
+     * @param head: The first node of linked list.
+     * @return: You should return the head of the sorted linked list,
+                    using constant space complexity.
+     */
+    ListNode *sortList(ListNode *head) {
+        // write your code here
+       if(head==NULL||head->next==NULL)
+        return head;
+       
+       ListNode *s=head,*f=head->next;
+       while(f!=NULL&&f->next!=NULL){
+           s=s->next;
+           f=f->next->next;
+       }
+       
+       
+       int Val=s->val;
+       Pair *Order=Partation(head,Val);
+       ListNode *l=Order->left,*r=Order->right;
+       
+       ListNode *left=sortList(l);
+       ListNode *right=sortList(r);
+       
+       ListNode *m=Merge(left,right);
+        
+       return m;
+    }
+    Pair *Partation(ListNode *head,int val){
+        if(head==NULL||head->next==NULL) return new Pair(head,NULL);
+        
+        ListNode *list1=new ListNode(0),*list2=new ListNode(0);
+        ListNode *l1=list1,*l2=list2;
+        
+        while(head!=NULL){
+            if(head->val<val){
+                list1->next=head;
+                list1=list1->next;
+            }else{
+                list2->next=head;
+                list2=list2->next;
+            }
+             head=head->next;
+        }
+        list1->next=NULL;
+        list2->next=NULL;
+        Pair *result=new Pair(l1->next,l2->next);
+        
+        return result;
+    }
+    ListNode *Merge(ListNode *l,ListNode *r){
+        if(l==NULL)
+            return r;
+        while(l->next!=NULL)
+            l=l->next;
+        l->next=r;
+        
+        return l;
+    }
+};
+
+
