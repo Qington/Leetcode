@@ -1,0 +1,39 @@
+class Solution {
+public:
+    vector<vector<int>> combinationSum3(int k, int n) {
+        vector<vector<int>> result;
+        if(k<1||n<1) return result;
+        
+        
+        //sort(candidates.begin(),candidates.end());
+        vector<int> candidates(9);
+        for(int i=0;i<9;i++)
+            candidates[i]=i+1;
+        vector<int> list;
+        int target=n;
+        dfs(result,candidates,list,0,target,k);
+        
+        return result;
+    }
+    void dfs(vector<vector<int>> &result, vector<int> &candidates,
+             vector<int> &list, int pos, int target, int k) {
+        int sum=0;
+        for(int i=0; i<list.size(); i++)
+            sum+=list[i];
+        if(sum==target&&list.size()==k){
+            result.push_back(list);
+            return;
+        }else if(sum>target&&list.size()>k){
+            return;
+        }
+            
+        
+        for(int i=pos; i<candidates.size(); i++) {
+            if(i!=pos&&candidates[i]==candidates[i-1])
+                continue;
+            list.push_back(candidates[i]);
+            dfs(result,candidates,list,i+1,target,k);
+            list.pop_back();
+        }
+    }
+};
