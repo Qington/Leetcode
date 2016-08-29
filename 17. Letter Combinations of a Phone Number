@@ -1,0 +1,35 @@
+class Solution {
+public:
+    vector<string> letterCombinations(string digits) {
+        vector<string> result;
+        if(digits.length()==0) return result;
+        
+        int l=digits.length();
+        vector<int> nums(l);
+        for(int i=0; i<l; i++)
+            nums[i]=digits[i]-'0';
+        vector<vector<char>> table={{ 'a', 'b', 'c' },{ 'd', 'e', 'f' },
+                                    { 'g', 'h', 'i' },{ 'j', 'k', 'l' },
+                                    { 'm', 'n', 'o' },{ 'p', 'q', 'r', 's' },
+                                    { 't', 'u', 'v'},{ 'w', 'x', 'y', 'z' }};
+        string s;
+        dfs(l,s,nums,0,table,result);
+        return result;
+    }
+    void dfs(int l, string s, vector<int> &nums, int pos, 
+             vector<vector<char>> &table, vector<string> &result) {
+        if(s.length()==l) {
+             result.push_back(s);
+             return;
+        }
+        
+        for(int j=pos; j<l; j++) {
+            for(int i=0; i<table[nums[j]-2].size(); i++) {
+                
+                s.push_back(table[nums[j]-2][i]);
+                dfs(l,s,nums,j+1,table,result);
+                s.pop_back();
+            }
+        }
+    }
+};
