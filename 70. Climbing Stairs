@@ -1,0 +1,19 @@
+class Solution {
+public:
+    int climbStairs(int n) {
+        if(n==0) return 1;
+        int s=Fib(n);
+        return s;
+    }
+    int Fib(int n){
+        int l=1,r=1;
+        int s=1;
+        while(n>1) {
+            s=l+r;
+            l=r;
+            r=s;
+            n--;
+        }
+        return s;
+    }
+};
