@@ -1,0 +1,58 @@
+version 1.
+class Solution {
+public:
+    /**
+     * @param triangle: a list of lists of integers.
+     * @return: An integer, minimum path sum.
+     */
+    int minimumTotal(vector<vector<int> > &triangle) {
+        // write your code here
+        if(triangle.size()==0) return -1;
+        
+        int l=triangle.size();
+        vector<vector<int>> f(l,vector<int>(l));
+        f[0][0]=triangle[0][0];
+        for(int i=1; i<l; i++) {
+            f[i][0]=f[i-1][0]+triangle[i][0];
+            f[i][i]=f[i-1][i-1]+triangle[i][i];
+        }
+        for(int i=1; i<l; i++) {
+            for(int j=1; j<triangle[i].size()-1; j++) {
+                f[i][j]=min(f[i-1][j],f[i-1][j-1])+triangle[i][j];  
+            }
+        }
+        int result=f[l-1][0];
+        for(int i=1; i<l; i++) {
+            if(result>f[l-1][i])
+                result=f[l-1][i];
+        }
+        return result;
+    }
+};
+
+Version 2.
+class Solution {
+public:
+    int minimumTotal(vector<vector<int>>& triangle) {
+        if(triangle.size()==0) return -1;
+        
+        int l=triangle.size();
+        vector<int> f(l);
+        f[0]=triangle[0][0];
+        for(int i=1; i<l; i++){
+            for(int j=triangle[i].size()-1; j>=0; j--) {
+                if(j==triangle[i].size()-1)
+                    f[j]=f[j-1]+triangle[i][j];
+                else if(j==0)
+                    f[j]=f[j]+triangle[i][j];
+                else
+                    f[j]=min(f[j],f[j-1])+triangle[i][j];
+            }
+        }
+        int result=f[0];
+        for(int i=1; i<l; i++) {
+            result=min(result,f[i]);
+        }
+        return result;
+    }
+};
