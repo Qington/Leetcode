@@ -1,0 +1,28 @@
+//Time Limit exceeded
+class Solution {
+public:
+    int jump(vector<int>& A) {
+        if(A.size()<2) return 0;
+        
+        int l=A.size();
+        vector<int> fs(l,-1);
+        
+        if(A[0]==0){
+            return 0; 
+        }else{
+            fs[0]=0;
+        }
+        
+        for(int i=1; i<l; i++) {
+            int temp=l;
+            for(int j=0; j<i; j++) {
+                if(i-j<=A[j]&&fs[j]!=-1){
+                      temp=min(temp,fs[j]+1);
+                      break;
+                }
+            }
+            fs[i]=temp==l?-1:temp;
+        }
+        return fs[l-1];
+    }
+};
