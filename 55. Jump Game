@@ -1,0 +1,27 @@
+class Solution {
+public:
+    bool canJump(vector<int>& A) {
+        if(A.size()==0) return false;
+        
+        int l=A.size();
+        vector<bool> f(l,false);
+        if(A[0]==0){
+            if(l>1)
+                return false;
+            else
+                return true;
+        }else{
+            f[0]=true;
+        }
+            
+        for(int i=1; i<l; i++) {
+            for(int j=i-1; j>=0; j--) {
+                if(f[j]&&i-j<=A[j]){
+                    f[i]=true;
+                    break;
+                }                
+            }
+        }
+        return f[l-1];
+    }
+};
