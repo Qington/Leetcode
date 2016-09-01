@@ -1,0 +1,33 @@
+class Solution {
+public:
+    bool wordBreak(string s, unordered_set<string>& dict) {
+        if(s.size()==0) {
+            if(dict.size()==0)
+                return true;
+            else
+                return false;
+        }
+        
+        int L=INT_MIN;
+        for(unordered_set<string>::iterator i=dict.begin(); i!=dict.end(); ++i) {
+            int temp=(*i).size();
+            L=max(L,temp);
+        }
+        
+        int l=s.size();
+        vector<bool> f(l+1,false);
+        f[0]=true;
+        for(int i=1; i<=l; i++){
+            for(int j=1; j<=L&&j<=i; j++){
+                if(!f[i-j])
+                    continue;
+                string temp=s.substr(i-j,j);
+                if(dict.find(temp)!=dict.end()){
+                    f[i]=true;
+                    break;
+                }
+            }
+        }
+        return f[l];
+    }
+};
