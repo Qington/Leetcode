@@ -1,0 +1,17 @@
+class Solution {
+public:
+    int singleNumber(vector<int>& nums) {
+         int result=0;
+        int bits[32];
+        
+        for(int i=0; i<32; i++) {
+            bits[i]=0;
+            for(int j=0; j<nums.size(); j++) {
+                bits[i]+=(nums[j]>>i)&1;
+                bits[i]%=3;
+            }
+            result+=bits[i]<<i;
+        }
+        return result;
+    }
+};
