@@ -1,0 +1,45 @@
+class Solution {
+public:
+    int maxProfit(vector<int>& prices) {
+        if(prices.size()<2) return 0;
+        /*
+        int result=0, result1=0, result2=0;
+        int l=INT_MAX,r=INT_MIN;
+        for(int i=0; i<prices.size(); i++) {
+            if(prices[i]<prices[i+1]&&i+1<prices.size()){
+                l=min(l,prices[i]);
+                r=max(r,prices[i+1]);
+            }else {
+                int temp=(l==INT_MAX&&r==INT_MIN)?0:r-l;
+                if(result1<result2)
+                    swap(result1,result2);
+                if(temp>result2)
+                    swap(temp,result2);
+                l=INT_MAX;
+                r=INT_MIN;
+            }
+        }
+        return result1+result2;
+        */
+        int s=prices.size();
+        int l=INT_MAX,r=INT_MIN;
+        int buy[s],sell[s];
+        l=prices[0];
+        buy[0]=0;
+        for(int i=1; i<s; i++) {
+            l=min(l,prices[i]);
+            buy[i]=max(buy[i-1],prices[i]-l);
+        }
+        r=prices[s-1];
+        sell[s-1]=0;
+        for(int i=s-2; i>=0; i--) {
+            r=max(r,prices[i]);
+            sell[i]=max(sell[i+1],r-prices[i]);
+        }
+        int result=0;
+        for(int i=0; i<s; i++) {
+            result=max(result,buy[i]+sell[i]);
+        }
+        return result;
+    }
+};
