@@ -1,0 +1,54 @@
+class Solution {
+public:
+    /**
+     * @param nums: A list of integers
+     * @return: An integer indicate the value of maximum difference between two
+     *          Subarrays
+     */
+    int maxDiffSubArrays(vector<int> nums) {
+        // write your code here
+        int s=nums.size();
+        if(s<2) return 0;
+        
+        vector<int> left1(s,0),left2(s,0),right1(s,0),right2(s,0);
+        int Max=INT_MIN, sum=0, minSum=0;
+        for(int i=0; i<s; i++) {
+            sum+=nums[i];
+            Max=max(Max,sum-minSum);
+            minSum=min(minSum,sum);
+            left1[i]=Max;
+        }
+        Max=INT_MIN;
+        sum=0;
+        minSum=0;
+        for(int i=s-1; i>=0; i--) {
+            sum+=nums[i];
+            Max=max(Max,sum-minSum);
+            minSum=min(minSum,sum);
+            right1[i]=Max;
+        }
+        int Min=INT_MAX,  maxSum=0;
+        sum=0;
+        for(int i=0; i<s; i++) {
+            sum+=nums[i];
+            Min=min(Min,sum-maxSum);
+            maxSum=max(maxSum,sum);
+            left2[i]=Min;
+        }
+        Min=INT_MAX;
+        maxSum=0;
+        sum=0;
+        for(int i=s-1; i>=0; i--) {
+            sum+=nums[i];
+            Min=min(Min,sum-maxSum);
+            maxSum=max(maxSum,sum);
+            right2[i]=Min;
+        }
+        int result=INT_MIN;
+        for(int i=0; i<s-1; i++) {
+            result=max(result,abs(left1[i]-right2[i+1]));
+            result=max(result,abs(left2[i]-right1[i+1]));
+        }
+        return result;
+    }
+};
