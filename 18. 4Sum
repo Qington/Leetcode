@@ -1,0 +1,105 @@
+version i
+class Solution {
+public:
+    /**
+     * @param numbers: Give an array numbersbers of n integer
+     * @param target: you need to find four elements that's sum of target
+     * @return: Find all unique quadruplets in the array which gives the sum of 
+     *          zero.
+     */
+    vector<vector<int> > fourSum(vector<int> nums, int target) {
+        // write your code here
+        int l=nums.size();
+        vector<vector<int> > result;
+        if(l<4) return result;
+        
+        sort(nums.begin(),nums.end());
+        for (int i=0; i<l-3; i++) {
+            if (i != 0 && nums[i] == nums[i - 1]) {
+				continue;
+			}
+            for(int j=i+1; j<l-2; j++) {
+               if (j != i + 1 && nums[j] == nums[j - 1])
+					continue;
+                int start=j+1, end=l-1;
+                int temp=target-nums[i]-nums[j];
+                while(start<end) {
+                    if(nums[start]+nums[end]==temp) {
+                        vector<int> out;
+                        out.push_back(nums[i]);
+                        out.push_back(nums[j]);
+                        out.push_back(nums[start]);
+                        out.push_back(nums[end]);
+                        start++;
+                        end--;
+                        result.push_back(out);
+                        while (start < end && nums[start] == nums[start - 1]) {
+							start++;
+						}
+						while (start < end && nums[end] == nums[end + 1]) {
+						     end--;
+						}
+                        
+                    }else if(nums[start]+nums[end]>temp) {
+                        end--;
+                    }else{
+                        start++;
+                    }
+                }
+            }
+        }
+        return result;
+    }
+};
+
+
+
+version 2. myself
+class Solution {
+public:
+    vector<vector<int>> fourSum(vector<int>& nums, int target) {
+        int l=nums.size();
+        vector<vector<int> > result;
+        if(l<4) return result;
+        
+        sort(nums.begin(),nums.end());
+        for (int i=0; i<l-3; i++) {
+            if (i != 0 && nums[i] == nums[i - 1]) {
+			//	continue;
+			}
+            for(int j=i+1; j<l-2; j++) {
+              // if (j != i + 1 && nums[j] == nums[j - 1])
+			  //		continue;
+                int start=j+1, end=l-1;
+                int temp=target-nums[i]-nums[j];
+                while(start<end) {
+                    if(nums[start]+nums[end]==temp) {
+                        vector<int> out;
+                        out.push_back(nums[i]);
+                        out.push_back(nums[j]);
+                        out.push_back(nums[start]);
+                        out.push_back(nums[end]);
+                        start++;
+                        end--;
+                        if(find(result.begin(),result.end(),out)==result.end())
+                            result.push_back(out);
+                        /*
+                        while (start < end && nums[start] == nums[start - 1]) {
+							start++;
+						}
+						while (start < end && nums[end] == nums[end + 1]) {
+						     end--;
+						}
+						*/
+                        
+                    }else if(nums[start]+nums[end]>temp) {
+                        end--;
+                    }else{
+                        start++;
+                    }
+                }
+            }
+        }
+        return result;
+    }
+};
