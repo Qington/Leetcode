@@ -1,0 +1,29 @@
+class Solution {
+public:
+    /** 
+     * @param chars: The letters array you should sort.
+     */
+    void sortLetters(string &letters) {
+        // write your code here
+        int s=letters.size();
+        if(s==0) return;
+        
+        int l=0,r=s-1;
+        while(l<=r) {
+            while(l<=r&&IsLower(letters[l])) {
+                l++;
+            }
+            while(l<=r&&!IsLower(letters[r])) {
+                r--;
+            }
+            if(l<=r) {
+                swap(letters[l],letters[r]);
+                l++;
+                r--;
+            }
+        }
+    }
+    bool IsLower(char c) {
+        return c>='a'&&c<='z';
+    }
+};
