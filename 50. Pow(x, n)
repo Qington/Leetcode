@@ -1,0 +1,22 @@
+class Solution {
+public:
+    double myPow(double x, int n) {
+        if(n==0) return 1.0;
+        if(n==1) return x;
+        
+        bool flag=false;
+        if(n<0){
+            n*=-1;
+            flag=true;
+        }
+
+        int k = n / 2;
+        int l = n - k * 2;
+        double t1 = myPow(x, k);
+        double t2 = myPow(x, l);
+        double result=t1*t1*t2;
+        if (flag)
+            result=1.0/result;
+        return result;
+    }
+};
