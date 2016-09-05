@@ -1,0 +1,17 @@
+class Solution {
+public:
+    int mySqrt(int x) {
+        long l=1, r=x;
+        while(l+1<r) {
+            long med=l+(r-l)/2;
+            if(med*med<x)
+                l=med;
+            else
+                r=med;
+        }
+        if(r*r<=x)
+            return r;
+        else
+            return l;
+    }
+};
