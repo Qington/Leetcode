@@ -1,0 +1,49 @@
+class Solution {
+public:
+    /**
+     * @param A: An integer array.
+     * @return: void
+     */
+    void rerange(vector<int> &A) {
+        // write your code here
+        int s=A.size();
+        if(s==0) return;
+        
+        vector<int> neg,pos;
+        for(int i=0; i<s; i++) {
+            if(A[i]<0) {
+                neg.push_back(A[i]);
+            }else{
+                pos.push_back(A[i]);
+            }
+        }
+        int o=0,i,j;
+        for(i=0,j=0; i<neg.size()&&j<pos.size();) {
+            if(neg.size()>=pos.size()) {
+                A[o]=neg[i];
+                i++;
+                o++;
+                A[o]=pos[j];
+                j++;
+                o++;
+            }else{
+                A[o]=pos[j];
+                j++;
+                o++;
+                A[o]=neg[i];
+                i++;
+                o++;
+            }
+        }
+        while(i<neg.size()) {
+            A[o]=neg[i];
+            i++;
+            o++;
+        }
+        while(j<pos.size()) {
+            A[o]=pos[j];
+            j++;
+            o++;
+        }
+    }
+};
