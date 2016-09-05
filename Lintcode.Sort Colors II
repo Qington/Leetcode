@@ -1,0 +1,26 @@
+class Solution{
+public:
+    /**
+     * @param colors: A list of integer
+     * @param k: An integer
+     * @return: nothing
+     */    
+    void sortColors2(vector<int> &colors, int k) {
+        // write your code here
+        int s=colors.size();
+        if(s==0) return;
+        
+        vector<int> count(k,0);
+        for(int i=0; i<s; i++) {
+            count[colors[i]-1]++;
+        }
+        int o=0,sum=0;
+        for(int i=0; i<k; i++) {
+            sum+=count[i];
+            while(o<sum) {
+                colors[o]=i+1;
+                o++;
+            }
+        }
+    }
+};
