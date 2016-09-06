@@ -1,0 +1,82 @@
+Version 1. Traverse
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    vector<int> preorderTraversal(TreeNode* root) {
+        vector<int> result;
+        if(root==NULL) return result;
+        
+        Traversal(root,result);
+        return result;
+    }
+    void Traversal(TreeNode* root, vector<int> &result) {
+        if(root=NULL) return;
+        
+        result.push_back(root->val);
+        Traversal(root->left,result);
+        Traversal(root->right,result);
+    }
+};
+Version 2. loop.
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    vector<int> preorderTraversal(TreeNode* root) {
+        vector<int> result;
+        if(root==NULL) return result;
+        
+        stack<TreeNode*> temp;
+        temp.push(root);
+        while(!temp.empty()) {
+            TreeNode *node=temp.top();
+            result.push_back(node->val);
+            temp.pop();
+            if(node->right!=NULL)
+                temp.push(node->right);
+            if(node->left!=NULL)
+                temp.push(node->left);
+        }
+        return result;
+    }
+};
+Version 3. Divide&Conquer
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    vector<int> preorderTraversal(TreeNode* root) {
+        vector<int> result;
+        if(root==NULL) return result;
+        //Divide
+        vector<int> left=preorderTraversal(root->left);
+        vector<int> right=preorderTraversal(root->right);
+        //Conquer
+        result.push_back(root->val);
+        result.insert(result.end(),left.begin(),left.end());
+        result.insert(result.end(),right.begin(),right.end());
+        return result;
+    }
+};
