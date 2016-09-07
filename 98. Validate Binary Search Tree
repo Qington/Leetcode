@@ -1,0 +1,53 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class ResultType {
+public:
+    bool isBST;
+    TreeNode *Max,*Min;
+    ResultType() {
+        this->isBST=true;
+        this->Max=NULL;
+        this->Min=NULL;
+    }
+};
+class Solution {
+public:
+    bool isValidBST(TreeNode* root) {
+        if(root==NULL) return true;
+        
+        ResultType ans=helper(root);
+        return ans.isBST;
+    }
+    ResultType helper(TreeNode *root) {
+        ResultType ans;
+        if(root==NULL) return ans;
+        
+        ResultType l=helper(root->left);
+        ResultType r=helper(root->right);
+        
+        if(!l.isBST||!r.isBST) {
+            ans.isBST=false;
+            return ans;
+        }
+        if(l.Max!=NULL&&l.Max->val>=root->val) {
+            ans.isBST=false;
+            return ans;
+        }
+        if(r.Min!=NULL&&r.Min->val<=root->val) {
+            ans.isBST=false;
+            return ans;
+        }
+        
+        ans.isBST=true;
+        ans.Max=r.Max==NULL?root:r.Max;
+        ans.Min=l.Min==NULL?root:l.Min;
+        return ans;
+    }
+};
