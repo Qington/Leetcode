@@ -1,0 +1,81 @@
+/**
+ * Definition of TreeNode:
+ * class TreeNode {
+ * public:
+ *     int val;
+ *     TreeNode *left, *right;
+ *     TreeNode(int val) {
+ *         this->val = val;
+ *         this->left = this->right = NULL;
+ *     }
+ * }
+ */
+class Solution {
+public:
+    /**
+     * @param root: The root of the binary search tree.
+     * @param value: Remove the node with given value.
+     * @return: The root of the binary search tree after removal.
+     */
+    TreeNode* removeNode(TreeNode* root, int value) {
+        // write your code here
+        TreeNode* dummy= new TreeNode(0);
+        dummy->left=root;
+        
+        TreeNode* parent=FindNode(dummy,root,value);
+        TreeNode* node;
+        if(parent->left!=NULL&&parent->left->val==value) {
+            node=parent->left;
+        }else if(parent->right!=NULL&&parent->right->val==value) {
+            node=parent->right;
+        }else {
+            return dummy->left;
+        }
+        DeleteNode(parent,node);
+        return dummy->left;
+    }
+    TreeNode* FindNode(TreeNode* parent, TreeNode* node, int Value) {
+        if(node==NULL) return parent;
+        
+        if(node->val==Value) {
+            return parent;
+        }
+        if(node->val>Value) {
+            return FindNode(node,node->left,Value);
+        }else {
+            return FindNode(node,node->right,Value);
+        }
+    }
+    void DeleteNode(TreeNode* parent, TreeNode* node) {
+        if(node->right==NULL) {
+            if(parent->left==node) {
+                parent->left=node->left;
+            }else {
+                parent->right=node->left;
+            }
+        }else {
+            TreeNode* temp = node->right;
+            TreeNode* father = node;
+            
+            while (temp->left != NULL) {
+                father = temp;
+                temp = temp->left;
+            }
+            
+            if (father->left == temp) {
+                father->left = temp->right;
+            } else {
+                father->right = temp->right;
+            }
+            
+            if (parent->left == node) {
+                parent->left = temp;
+            } else {
+                parent->right = temp;
+            }
+            
+            temp->left = node->left;
+            temp->right = node->right;
+        }
+    }
+};
