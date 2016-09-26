@@ -1,0 +1,31 @@
+class Solution {
+public:
+    bool isPalindrome(string s) {
+     if (s.size()==0) return true;
+        
+        string n;
+        for(int i=0; i<s.size(); i++){
+            if(IsNumorLetter(s[i])){
+                if(s[i]>=97&&s[i]<=122)
+                    n.push_back(s[i]-32);
+                else
+                    n.push_back(s[i]);
+            }
+        }
+        
+        int l=0,r=n.size()-1;
+        while(l<=r){
+            if(n[l]!=n[r])
+                return false;
+            l++;
+            r--;
+        }
+        return true;
+    }
+    bool IsNumorLetter(char temp){
+        if(temp>=48&&temp<=57||temp>=65&&temp<=90||temp>=97&&temp<=122)
+            return true;
+        else
+            return false;
+    }
+};
