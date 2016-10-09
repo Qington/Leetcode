@@ -14,7 +14,8 @@ void QuickSort(int H[], int l, int r) {
 	while(l<r){
 		int p=(l+r)/2;
 		swap(H[p],H[l]);
-		int PK=H[l],int i=l,j=r;
+		int PK=H[l];
+		int i=l,j=r;
 		while(l<r){
 			while(l<r&&H[r]>=PK) r--;
 			swap(H[l],H[r]);
