@@ -11,7 +11,7 @@ void print(int a[], int n){
 void merage(int a[], int l, int m, int r, int c[]) {
 	int i=l,j=m+1,k=0;
 	while(i<=m&&j<=r) {
-		if(a[i]<b[j]) {
+		if(a[i]<a[j]) {
 			c[k]=a[i];
 			i++;
 			k++;
